@@ -21,6 +21,8 @@ Then simple run:
 ```shell script
 $ make up
 ``` 
+> Installed `make` command and docker with docker-compose is required ([how to install make][getmake] or [how to install docker][getdocker]).
+
 That's all!
 
 Feel free to change `.rr.local.yaml` config in your work directory ([full example can be found here][roadrunner_config]).
@@ -30,6 +32,7 @@ You may see worked instances of [RR][roadrunner] by:
 ```shell script
 $ rr workers -i -c /app/.rr.yaml
 ```
+> You must do it in your docker container.
 
 ### Remember about known issues
 
@@ -137,6 +140,8 @@ MIT License (MIT). Please see [`LICENSE`](./LICENSE) for more information. Fully
 [link_pulls]:https://github.com/spiral/roadrunner-laravel/pulls
 [link_license]:https://github.com/mobypolo/roadrunner-lumen/blob/main/LICENSE
 [getcomposer]:https://getcomposer.org/download/
+[getmake]:https://askubuntu.com/questions/161104/how-do-i-install-make
+[getdocker]:https://docs.docker.com/engine/install/
 [roadrunner]:https://github.com/spiral/roadrunner
 [roadrunner_config]:https://github.com/spiral/roadrunner-binary/blob/master/.rr.yaml
 [laravel]:https://lumen.laravel.com/
