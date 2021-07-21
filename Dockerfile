@@ -29,4 +29,4 @@ RUN openssl req -x509 -nodes -days 1095 -newkey rsa:2048 \
     && chmod 644 /etc/ssl/private/selfsigned.key
 
 ENTRYPOINT []
-CMD ["rr","serve -c /app/rr-conf/.rr.yaml"]
+CMD ["sleep","3600"]
