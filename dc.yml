@@ -1,0 +1,47 @@
+version: '3.2'
+
+volumes:
+  pg-data: {}
+  redis-data: {}
+  tmp-data: {}
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rr-lumen
+    restart: always
+    user: root
+    environment:
+      PS1: '\[\033[1;32m\]\[\033[1;36m\][\u@\h] \[\033[1;34m\]\w\[\033[0;35m\] \[\033[1;36m\]# \[\033[0m\]'
+      HOME: /tmp
+      APP_DEBUG: 'true'
+      APP_ENV: local
+      REDIS_HOST: redis
+      REDIS_PASSWORD: redis_password
+      DB_HOST: postgres
+      DB_DATABASE: forge
+      DB_USERNAME: forge
+      DB_PASSWORD: forge
+    volumes:
+      - ./app:/app/app
+      - ./bootstrap:/app/bootstrap
+      - ./database:/app/database
+      - ./public:/app/public
+      - ./resources:/app/resources
+      - ./routes:/app/routes
+      - ./storage:/app/storage
+      - ./tests:/app/tests
+      - ./.env.example:/app/.env
+      - ./artisan:/app/artisan
+      - ./composer.json:/app/composer.json
+      - ./.rr.local.yaml:/app/rr-conf/.rr.yaml
+    ports:
+      - 80:8080/tcp
+      - 443:8443/tcp
+      - 8082:8082/tcp
+    healthcheck:
+      test: ['CMD-SHELL', 'wget --spider -q "http://127.0.0.1:8082/health?plugin=http&plugin=rpc"']
+      interval: 2s
+      timeout: 2s

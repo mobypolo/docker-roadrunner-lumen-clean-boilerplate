@@ -1,0 +1,50 @@
+#https://github.com/spiral/roadrunner-docs/blob/1.0/intro/config.md
+
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+server:
+  command: "php /app/vendor/mobypolo/roadrunner-lumen/bin/rr-lumen-worker"
+
+http:
+  address: "0.0.0.0:8080"
+  middleware: ["headers", "gzip"]
+  pool:
+    num_workers: 4 
+  headers:
+    response:
+      X-Powered-By: "RoadRunner"
+  ssl:
+    address: 0.0.0.0:8443
+    redirect: false
+    cert: /etc/ssl/certs/selfsigned.crt
+    key: /etc/ssl/private/selfsigned.key
+  http2:
+    h2c: false
+    max_concurrent_streams: 128
+logs:
+  mode: production
+  level: debug
+  encoding: json
+status:
+  address: :8082
+  unavailable_status_code: 503
+
+
+reload:
+  # sync interval
+  interval: 1s
+  # global patterns to sync
+  patterns: [ ".php" ]
+  # list of included for sync services
+  services:
+    http:
+      # recursive search for file patterns to add
+      recursive: true
+      # ignored folders
+      ignore: [ "vendor" ]
+      # service specific file pattens to sync
+      patterns: [ ".php", ".go", ".md" ]
+      # directories to sync. If recursive is set to true,
+      # recursive sync will be applied only to the directories in `dirs` section
+      dirs: [ "/app" ]
