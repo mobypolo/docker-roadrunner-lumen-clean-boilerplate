@@ -14,5 +14,5 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version() . "asd123456";
+    return $router->app->version();
 });
